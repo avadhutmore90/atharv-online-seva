@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2c3e50;
+    padding: 1rem 5%;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    padding: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #1abc9c;
+}
+
+.login-btn {
+    background: #1abc9c;
+    padding: 8px 20px;
+    border-radius: 5px;
+}
+
+.hero {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                              url('file:///C:/Users/Admin/Desktop/avadhut/shop.jpeg');
+            
+            background-size: cover;      /* Scales image to fill the screen */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat;
+}
+
+.cta-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #1abc9c;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 5%;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #2c3e50;
+    color: white;
+}
