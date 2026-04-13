@@ -4,6 +4,15 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: 0.3s; /* Smooth transition when switching */
+}
+
+nav { background-color: var(--nav-bg); }
+.hero-section { background-color: var(--card-bg); }
 /* 1. Define colors for Light Mode (Default) */
 :root {
     --bg-color: #ffffff;
@@ -21,15 +30,6 @@ body.dark-theme {
 }
 
 /* 3. Apply the variables to your elements */
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: 0.3s; /* Smooth transition when switching */
-}
-
-nav { background-color: var(--nav-bg); }
-.hero-section { background-color: var(--card-bg); }
-
 /* Style for the toggle button */
 #theme-toggle {
     cursor: pointer;
