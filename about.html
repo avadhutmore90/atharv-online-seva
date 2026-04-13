@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Atharv Online Seva</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        .about-header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* Detail Items */
+        .detail-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            display: block;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        /* Payment Section */
+        .payment-box {
+            background: #e8f8f5;
+            border: 1px dashed #1abc9c;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .payment-no {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #16a085;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="about-header">
+        <h1>Atharv Online Seva Kendra</h1>
+        <p>Serving the Kole community with excellence since 2026</p>
+        <a href="index.html" class="home-link">🏠 Return to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="content-grid">
+            
+            <div class="card">
+                <h2>Our Vision</h2>
+                <p>Atharv Online Seva Kendra is dedicated to bridging the digital gap in Kole. We provide a one-stop solution for all government and digital documentation needs, ensuring every citizen gets fast, reliable, and affordable service.</p>
+                <p>We take pride in our accuracy and customer satisfaction. Whether it's your first PAN card or urgent land records, we handle every document with professional care.</p>
+                
+                <div class="detail-item">
+                    <span class="icon">🕒</span>
+                    <div>
+                        <span class="info-label">Operating Hours</span>
+                        <span class="info-value">7:00 AM — 9:00 PM (Opens Daily)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Contact Information</h2>
+                
+                <div class="detail-item">
+                    <span class="icon">📍</span>
+                    <div>
+                        <span class="info-label">Address</span>
+                        <span class="info-value">Near Khandoba Mandir, Atharv Online Seva, Kole</span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <span class="icon">📞</span>
+                    <div>
+                        <span class="info-label">Mobile Numbers</span>
+                        <span class="info-value">7066077428 / 8010679552</span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <span class="icon">💬</span>
+                    <div>
+                        <span class="info-label">WhatsApp</span>
+                        <span class="info-value">7066077428</span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <span class="icon">💳</span>
+                    <div>
+                        <span class="info-label">PhonePe / Google Pay</span>
+                        <div class="payment-box">
+                            <span class="payment-no">9545605424</span>
+                            <p style="margin: 5px 0 0; font-size: 0.8rem; color: #7f8c8d;">Secure Digital Payments Accepted</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 40px; color: #7f8c8d;">
+        <p>&copy; 2026 Atharv Online Seva Kendra. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
