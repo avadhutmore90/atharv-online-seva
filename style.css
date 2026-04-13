@@ -51,7 +51,7 @@ body {
     align-items: center;
     color: rgb(255, 255, 255);
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                              url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTygcslAbkEg7E5MBWFB9m8mB_3DlwkOmr57w&s');
+                              url('blob:https://web.whatsapp.com/8f569de1-9062-4399-b791-d1a67b43a049');
             
             background-size: cover;      /* Scales image to fill the screen */
             background-position: center; /* Centers the image */
