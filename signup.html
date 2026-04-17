@@ -149,13 +149,15 @@
             margin-bottom: 24px;
         }
 
-        .signup-btn:hover {
+        .signup-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
         }
 
-        .signup-btn:active {
-            transform: translateY(0);
+        .signup-btn:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .signup-btn::before {
@@ -169,8 +171,48 @@
             transition: left 0.5s;
         }
 
-        .signup-btn:hover::before {
+        .signup-btn:hover:not(:disabled)::before {
             left: 100%;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .redirect-message {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            animation: slideDown 0.4s ease;
+        }
+
+        .countdown {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 8px;
         }
 
         .divider {
@@ -288,30 +330,6 @@
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(180deg); }
         }
-
-        /* Success message */
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 500;
-            animation: slideDown 0.4s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 </head>
 <body>
@@ -332,29 +350,33 @@
         </div>
 
         <form id="signupForm">
-            <div class="success-message" id="successMessage">
-                Account created successfully! 🎉
+            <!-- Success message will be shown here -->
+            <div class="redirect-message" id="redirectMessage" style="display: none;">
+                <div>Account created successfully! 🎉</div>
+                <div class="countdown" id="countdown">Redirecting to login in <span id="timer">3</span> seconds...</div>
             </div>
 
-            <div class="form-group">
-                <i class="fas fa-user form-icon"></i>
-                <input type="text" id="fullName" placeholder="Full Name" required>
-            </div>
+            <div id="formFields">
+                <div class="form-group">
+                    <i class="fas fa-user form-icon"></i>
+                    <input type="text" id="fullName" placeholder="Full Name" required>
+                </div>
 
-            <div class="form-group">
-                <i class="fas fa-envelope form-icon"></i>
-                <input type="email" id="email" placeholder="Email Address" required>
-            </div>
+                <div class="form-group">
+                    <i class="fas fa-envelope form-icon"></i>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
 
-            <div class="form-group">
-                <i class="fas fa-lock form-icon"></i>
-                <input type="password" id="password" placeholder="Password" required>
-                <i class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
-            </div>
+                <div class="form-group">
+                    <i class="fas fa-lock form-icon"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fas fa-eye-slash password-toggle" id="togglePassword"></i>
+                </div>
 
-            <button type="submit" class="signup-btn">
-                <i class="fas fa-rocket"></i> Sign Up
-            </button>
+                <button type="submit" class="signup-btn">
+                    <i class="fas fa-rocket"></i> Sign Up
+                </button>
+            </div>
         </form>
 
         <div class="divider">
@@ -371,7 +393,7 @@
         </div>
 
         <div class="login-link">
-            Already have an account? <a href="#">Sign in</a>
+            Already have an account? <a href="login.html">Sign in</a>
         </div>
     </div>
 
@@ -387,26 +409,37 @@
             this.classList.toggle('fa-eye');
         });
 
-        // Form submission
+        // Form submission with redirect to login page
         document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Simulate form submission
+            // Hide form fields
+            document.getElementById('formFields').style.display = 'none';
+            
+            // Show redirect message
+            const redirectMessage = document.getElementById('redirectMessage');
+            const timer = document.getElementById('timer');
+            redirectMessage.style.display = 'block';
+            
+            // Disable submit button
             const btn = document.querySelector('.signup-btn');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
             btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-check"></i> Account Created!';
             
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'block';
-                btn.innerHTML = '<i class="fas fa-check"></i> Welcome!';
+            // Countdown and redirect
+            let countdown = 3;
+            timer.textContent = countdown;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                timer.textContent = countdown;
                 
-                setTimeout(() => {
-                    // Reset form or redirect
-                    window.location.reload();
-                }, 2000);
-            }, 1500);
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    // Redirect to login.html
+                    window.location.href = 'login.html';
+                }
+            }, 1000);
         });
 
         // Input animations
@@ -431,6 +464,11 @@
                     this.style.transform = '';
                 }, 150);
             });
+        });
+
+        // Manual redirect link in case user wants to go immediately
+        document.getElementById('redirectMessage').addEventListener('click', function() {
+            window.location.href = 'login.html';
         });
     </script>
 </body>
