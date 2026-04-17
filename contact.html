@@ -4,143 +4,415 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Atharv Online Seva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f4f7f6;
-            color: #2c3e50;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(-45deg, #0f0f23, #1a1a3e, #2a2a5e, #16213e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #e0e6ed;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #00f5ff, #ff00ff);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
         }
 
         .contact-container {
-            max-width: 900px;
-            margin: 50px auto;
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin: 60px 0 80px;
         }
 
-        .header h1 { color: #1abc9c; font-size: 2.5rem; }
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00f5ff, #ff00ff, #00ff88, #ffaa00);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        @keyframes textGlow {
+            0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+            100% { background-position: 100% 50%; filter: hue-rotate(360deg); }
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #a0b0c0;
+            font-weight: 300;
+        }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
         }
 
         .contact-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 40px 30px;
+            border-radius: 25px;
             text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .contact-card:hover { transform: translateY(-5px); }
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
 
-        /* Social Buttons */
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 245, 255, 0.3);
+            border-color: rgba(0, 245, 255, 0.5);
+        }
+
+        .contact-card h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Futuristic Buttons */
         .btn {
             display: inline-block;
-            padding: 12px 25px;
-            margin-top: 15px;
-            border-radius: 30px;
+            padding: 15px 35px;
+            margin: 8px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            color: white;
-            transition: 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .whatsapp-btn { background-color: #25D366; }
-        .insta-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        .home-btn { background-color: #34495e; margin-bottom: 20px; }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .insta-btn {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+            color: white;
+        }
+
+        .insta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.6);
+        }
+
+        .home-btn {
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            box-shadow: 0 5px 15px rgba(52, 73, 94, 0.4);
+            color: white;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 73, 94, 0.6);
+        }
 
         /* Scanner Styling */
         .scanner-box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 2px dashed #1abc9c;
-            border-radius: 10px;
-            background-color: #fff;
+            margin-top: 25px;
+            padding: 25px;
+            border: 2px solid rgba(0, 245, 255, 0.5);
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanner-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f5ff, transparent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .qr-placeholder {
-            width: 200px;
-            height: 200px;
-            background-color: #eee;
-            margin: 0 auto;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .qr-placeholder::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .qr-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
         }
 
         .payment-id {
-            font-weight: bold;
-            color: #16a085;
-            margin-top: 10px;
-            display: block;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #00f5ff;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            letter-spacing: 1px;
         }
 
-        @media (max-width: 600px) {
-            .contact-container { padding: 10px; }
+        .phone-numbers {
+            font-size: 1.1rem;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .phone-numbers span {
+            display: block;
+            margin: 8px 0;
+            color: #00ff88;
+            transition: color 0.3s ease;
+        }
+
+        .phone-numbers span:hover {
+            color: #00f5ff;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #a0b0c0;
+            margin-top: 15px;
+            font-weight: 300;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid #00f5ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+            .contact-container { padding: 15px; }
+            .contact-card { padding: 30px 20px; }
+        }
+
+        /* Scroll Indicator */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #00f5ff, #ff00ff);
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-<div class="contact-container">
-    <a href="index.html" class="btn home-btn">🏠 Back to Home</a>
+    <div class="contact-container">
+        <a href="index.html" class="btn home-btn">🏠 Back to Home</a>
 
-    <div class="header">
-        <h1>Get In Touch</h1>
-        <p>Connect with us on social media or scan to pay securely.</p>
-    </div>
-
-    <div class="contact-grid">
-        <div class="contact-card">
-            <h2>Join Our Community</h2>
-            <p>Stay updated with the latest government schemes and news.</p>
-            
-            <a href="https://chat.whatsapp.com/C6KC8jdbUiaDDv53TfvQue">
-                📱 Join WhatsApp Group
-            </a>
-            <br>
-            <a href="https://www.instagram.com/atharv_online_seva_kole">
-                📸 Follow on Instagram
-            </a>
-            
-            <div style="margin-top: 30px;">
-                <p><strong>Call Us:</strong><br>7066077428 / 8010679552</p>
-            </div>
+        <div class="header">
+            <h1>CONTACT TERMINAL</h1>
+            <p>Establish secure connection via social channels or quantum payment scan</p>
         </div>
 
-        <div class="contact-card">
-            <h2>Quick Payment</h2>
-            <p>Scan the QR code below for PhonePe or Google Pay.</p>
-            
-            <div class="scanner-box">
-                <div class="qr-placeholder">
-                    <img src="scanner.jpeg" alt="PhonePe QR Scanner">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h2>COMMUNITY LINK</h2>
+                <p>Access real-time government scheme updates and intelligence feeds</p>
+                
+                <a href="https://chat.whatsapp.com/C6KC8jdbUiaDDv53TfvQue" class="btn whatsapp-btn">
+                    📱 WHATSAPP GROUP
+                </a>
+                <a href="https://www.instagram.com/atharv_online_seva_kole" class="btn insta-btn">
+                    📸 INSTAGRAM FEED
+                </a>
+                
+                <div class="phone-numbers">
+                    <p><strong>EMERGENCY COMMS:</strong></p>
+                    <span>7066077428</span>
+                    <span>8010679552</span>
                 </div>
-                <span class="payment-id">GPay/PhonePe:9545605424</span>
             </div>
-            <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 10px;">
-                *Please send a screenshot after payment.
-            </p>
+
+            <div class="contact-card">
+                <h2>QUANTUM PAYMENT</h2>
+                <p>Deploy secure cryptocurrency-grade payment via holographic QR scan</p>
+                
+                <div class="scanner-box">
+                    <div class="qr-placeholder">
+                        <img src="scanner.jpeg" alt="Quantum Payment Scanner">
+                    </div>
+                    <span class="payment-id">GPay/PhonePe: 9545605424</span>
+                </div>
+                <div class="note">
+                    🔒 TRANSMISSION CONFIRMED: Send payment screenshot for verification
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles on load
+        window.addEventListener('load', createParticles);
+
+        // Add subtle hover effects to phone numbers
+        document.querySelectorAll('.phone-numbers span').forEach(span => {
+            span.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            span.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.querySelector('.particles');
+            particles.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
 </body>
 </html>
