@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - Reset Your Password</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated floating elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(3px 3px at 30px 50px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 80px 120px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 150px 80px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 200px 160px, rgba(255,255,255,0.7), transparent);
+            background-repeat: repeat;
+            background-size: 250px 150px;
+            animation: float 25s infinite linear;
+            opacity: 0.15;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-30px) rotate(360deg); }
+        }
+
+        .reset-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            padding: 60px 45px;
+            width: 420px;
+            border-radius: 28px;
+            box-shadow: 
+                0 35px 60px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(255,255,255,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .reset-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f093fb, #f5576c, #4facfe);
+            border-radius: 28px 28px 0 0;
+        }
+
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, rgba(240,147,251,0.2), rgba(245,87,108,0.2));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(240,147,251,0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .reset-icon {
+            font-size: 36px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .reset-container h2 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #333, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
+        }
+
+        .reset-container .subtitle {
+            color: #666;
+            font-size: 17px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 28px;
+            text-align: left;
+            position: relative;
+        }
+
+        .input-group label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 10px;
+            display: block;
+            letter-spacing: 0.4px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 18px 22px;
+            border-radius: 16px;
+            border: 2px solid #e8ecf4;
+            outline: none;
+            font-size: 16px;
+            background: linear-gradient(145deg, #fdfdff, #f8f9ff);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .input-group input:focus {
+            border-color: #f5576c;
+            background: #fff;
+            box-shadow: 
+                0 0 0 4px rgba(245,87,108,0.15),
+                0 8px 25px rgba(245,87,108,0.1);
+            transform: translateY(-3px);
+        }
+
+        .input-group input::placeholder {
+            color: #adb5bd;
+            font-weight: 400;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 12px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .reset-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .reset-btn:hover::before {
+            left: 100%;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(240,147,251,0.4);
+        }
+
+        .reset-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+            padding: 14px 28px;
+            background: rgba(240,147,251,0.15);
+            color: #f093fb;
+            border: 2px solid rgba(240,147,251,0.3);
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+        }
+
+        .back-btn:hover {
+            background: rgba(240,147,251,0.25);
+            border-color: #f093fb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(240,147,251,0.2);
+        }
+
+        .back-btn::before {
+            content: '←';
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .extra-links {
+            margin-top: 36px;
+            font-size: 14px;
+        }
+
+        .extra-links p {
+            margin-bottom: 14px;
+        }
+
+        .extra-links a {
+            text-decoration: none;
+            color: #f5576c;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.25s ease;
+        }
+
+        .extra-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -3px;
+            left: 0;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            transition: width 0.35s ease;
+        }
+
+        .extra-links a:hover::after {
+            width: 100%;
+        }
+
+        .extra-links a:hover {
+            color: #4facfe;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(74,222,128,0.2));
+            border: 2px solid rgba(34,197,94,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #166534;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .reset-container {
+                margin: 20px;
+                padding: 50px 35px;
+                width: auto;
+                max-width: 420px;
+            }
+        }
+
+        /* Loading animation */
+        .reset-btn.loading {
+            pointer-events: none;
+            position: relative;
+        }
+
+        .reset-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            margin: auto;
+            border: 2px solid transparent;
+            border-top-color: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reset-container">
+        <div class="icon-container">
+            <div class="reset-icon">🔑</div>
+        </div>
+
+        <h2>Reset Password</h2>
+        <p class="subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+
+        <form id="resetForm">
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="resetEmail" placeholder="your.email@example.com" required>
+            </div>
+
+            <div class="success-message" id="successMsg">
+                ✅ Password reset link sent successfully! Check your email.
+            </div>
+
+            <button type="submit" class="reset-btn" id="resetBtn">Send Reset Link</button>
+        </form>
+
+        <a href="login.html" class="back-btn">Back to Login</a>
+
+        <div class="extra-links">
+            <p><a href="login.html">Remember your password? Sign in</a></p>
+            <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('resetForm');
+        const btn = document.getElementById('resetBtn');
+        const emailInput = document.getElementById('resetEmail');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            btn.classList.add('loading');
+            btn.textContent = 'Sending...';
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.textContent = 'Send Reset Link';
+                
+                // Show success message
+                successMsg.style.display = 'block';
+                emailInput.style.borderColor = '#22c55e';
+                emailInput.style.background = '#f0fdf4';
+                
+                // Scroll to success message
+                successMsg.scrollIntoView({ behavior: 'smooth' });
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                    form.reset();
+                    emailInput.style.borderColor = '#e8ecf4';
+                    emailInput.style.background = '';
+                }, 5000);
+            }, 2000);
+        });
+
+        // Enhanced input focus effects
+        emailInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-4px)';
+        });
+
+        emailInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+
+        // Email validation
+        emailInput.addEventListener('input', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailRegex.test(email)) {
+                this.style.borderColor = '#22c55e';
+            } else {
+                this.style.borderColor = '#e8ecf4';
+            }
+        });
+    </script>
+
+</body>
+</html>
