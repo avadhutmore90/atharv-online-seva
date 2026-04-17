@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continue with Google or Apple - Quick Sign In</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background orbs */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            animation: floatOrb 15s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(30px);
+            padding: 60px 50px;
+            width: 450px;
+            max-width: 90vw;
+            border-radius: 32px;
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,0.2),
+                0 0 0 1px rgba(255,255,255,0.3),
+                inset 0 1px 0 rgba(255,255,255,1);
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255,255,255,0.4);
+            z-index: 10;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 32px 32px 0 0;
+        }
+
+        .brand-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 20px 40px rgba(102,126,234,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .auth-container h2 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .auth-container .subtitle {
+            color: #64748b;
+            font-size: 18px;
+            margin-bottom: 45px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 24px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            z-index: 1;
+        }
+
+        .social-btn:hover::before {
+            left: 100%;
+        }
+
+        .google-btn {
+            background: #fff;
+            border: 2px solid #e8eaed;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .google-btn:hover {
+            border-color: #4285f4;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(66,133,244,0.3);
+        }
+
+        .apple-btn {
+            background: #000;
+            border: 2px solid #000;
+            color: #fff;
+        }
+
+        .apple-btn:hover {
+            background: #1d1d1f;
+            border-color: #1d1d1f;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider {
+            position: relative;
+            margin: 35px 0;
+            color: #9ca3af;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+        }
+
+        .divider span {
+            background: rgba(255,255,255,0.95);
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .email-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
+            border: 2px solid rgba(102,126,234,0.3);
+            border-radius: 20px;
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .email-btn:hover {
+            background: rgba(102,126,234,0.3);
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(102,126,234,0.25);
+            color: #5a67d8;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+            padding: 14px 28px;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .auth-container {
+                margin: 20px;
+                padding: 50px 35px;
+                width: auto;
+            }
+            
+            .social-buttons {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="auth-container">
+        <div class="brand-icon">🚀</div>
+        
+        <h2>Quick Sign In</h2>
+        <p class="subtitle">Continue with your social account or use email</p>
+
+        <div class="social-buttons">
+            <a href="#" class="social-btn google-btn" id="googleBtn">
+                <span class="social-icon">🇬🇧</span>
+                <span>Continue with Google</span>
+            </a>
+            
+            <a href="#" class="social-btn apple-btn" id="appleBtn">
+                <span class="social-icon">🍎</span>
+                <span>Continue with Apple</span>
+            </a>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <a href="login.html" class="email-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Continue with Email
+        </a>
+
+        <a href="login.html" class="back-btn">
+            ← Back to Login
+        </a>
+    </div>
+
+    <script>
+        // Social login handlers with loading states
+        document.getElementById('googleBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            simulateSocialLogin(this, 'Google');
+        });
+
+        document.getElementById('appleBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            simulateSocialLogin(this, 'Apple');
+        });
+
+        function simulateSocialLogin(button, provider) {
+            const originalText = button.innerHTML;
+            button.style.pointerEvents = 'none';
+            
+            // Add loading spinner
+            const spinner = document.createElement('div');
+            spinner.style.cssText = `
+                width: 20px; height: 20px; border: 2px solid transparent;
+                border-top: 2px solid rgba(255,255,255,0.5); border-radius: 50%;
+                animation: spin 1s linear infinite; margin-right: 12px;
+            `;
+            button.innerHTML = '';
+            button.appendChild(spinner);
+            button.innerHTML += `Signing in with ${provider}...`;
+
+            setTimeout(() => {
+                alert(`✅ Successfully signed in with ${provider}! Redirecting...`);
+                // window.location.href = 'dashboard.html';
+                button.innerHTML = originalText;
+                button.style.pointerEvents = 'auto';
+            }, 2500);
+        }
+
+        // Add entrance animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.social-btn');
+            buttons.forEach((btn, index) => {
+                btn.style.opacity = '0';
+                btn.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    btn.style.opacity = '1';
+                    btn.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const focused = document.activeElement;
+                if (focused.classList.contains('social-btn')) {
+                    focused.click();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
